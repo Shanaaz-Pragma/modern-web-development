@@ -93,7 +93,6 @@ export class ViewModel {
             const title = overview.querySelector('h4').innerText;
             const task = this.store.findByTitle(title);
             task.isComplete = e.target.checked;
-            console.log(task);
         }
     }
 
@@ -105,7 +104,6 @@ export class ViewModel {
         
         const template = document.querySelector('#task-template');
         
-
         for (const item of items) {
             const listItem = document.createElement('li');
             const clone = template.content.cloneNode(true);
@@ -153,7 +151,7 @@ export class ViewModel {
         this._taskList.appendChild(fragment);
 
         title.value = "";
-        date.value = "2020-05-01";
+        date.value = "2020-06-01";
         this.close();
     }
 

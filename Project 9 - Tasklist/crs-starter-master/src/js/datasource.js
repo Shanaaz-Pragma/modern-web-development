@@ -8,9 +8,6 @@ export class DataSource {
         this.data = newValue.readData();
     }
 
-    constructor(){
-    }
-
     /**
      * Dispose memory
      */

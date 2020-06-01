@@ -45,7 +45,6 @@ export class Store {
         if (window.localStorage.getItem(this["key"]) != null) {
             this.data = JSON.parse(window.localStorage.getItem(this["key"]));
         }
-        console.log(this.data);
         
         return this.data;
     }
@@ -59,8 +58,6 @@ export class Store {
             window.localStorage.setItem(this.key, JSON.stringify( [] ));
         }
         window.localStorage.setItem(this.key, JSON.stringify(data));
-
-        console.log(data);
     }
     
     /**
