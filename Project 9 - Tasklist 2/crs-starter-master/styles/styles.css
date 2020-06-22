@@ -1,0 +1,262 @@
+:root {
+    --c-light: #FFFFFF;
+    --c-pink: #E6AAB5;
+    --c-light-purple: #6C2FD8;
+    --c-dark-purple: #5223A5;
+    --c-text: #666666;
+    --c-disabled: #EEEEEE; 
+    --c-valid: #49B506; 
+    --c-invalid: #F42929; 
+    --c-box-shadow: #777777;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.hidden {
+    display: none;
+}
+
+html, body {
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 1rem;
+    background: var(--c-light);
+    color: var(--c-text);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    grid-area: title;
+    font-size: 1.4rem;
+    font-weight: normal;
+}
+
+h2 {
+    font-size: 1rem;
+    padding: 0.5rem 1rem 0.5rem 1.5rem;
+}
+
+a,
+a:visited {
+    color: var(--c-pink);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--c-light);
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+li {
+    padding: 0.625rem 1.875rem;
+} 
+
+input {
+    margin: 0 2rem 0 0;
+    height: 3rem;
+}
+
+input[type='checkbox'] {
+    margin: 0;
+    cursor: pointer;
+}
+
+input:invalid {
+    border: 0.125rem solid var(--c-invalid);
+}
+
+input:valid {
+    border: 0.125rem solid var(--c-valid);
+}
+
+label {
+    margin: 0 1rem 0 0;
+}
+
+button {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+}
+
+button:focus {
+    outline: none;
+}
+
+svg {
+    width: 2rem;
+    height: 2rem;
+    fill: var(--c-light);
+    pointer-events: none;
+}
+
+#app {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 5rem auto;
+    grid-template-areas:
+        "header"
+        "content";
+    box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.1), 0 0 2.5rem rgba(0, 0, 0, 0.1) inset;
+}
+
+header {
+    width: 100%;
+    background: var(--c-dark-purple);
+    color: var(--c-light);
+    border-top: 1rem solid var(--c-light-purple);
+    grid-area: header;
+    display: grid;
+    grid-template-columns: 5rem auto;
+    grid-template-areas:
+        "menu title";
+    align-items: center;
+    position: relative;
+}
+
+nav {
+    padding: 0 0.5rem 0 1.75rem;
+    grid-area: menu;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    cursor: pointer;
+}
+
+nav #menu-list {
+    background: var(--c-light-purple);
+    position: absolute;
+    top: 4rem;
+    width: 100%;
+    z-index: 999;
+}
+
+main {
+    grid-area: content;
+    padding: 0 0 0 2rem;
+    background: var(--c-light);
+    overflow-y: auto;
+}
+
+main > h2 {
+    position: absolute;
+    width: 100%;
+    top: 5rem;
+    left: 0;
+}
+
+main #tasks {
+    margin: 2.5rem 0 0 0;
+}
+
+main #tasks li {
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1rem auto;
+    grid-column-gap: 1rem;
+}
+
+main #tasks li:first-child .overview {
+    padding: 0 1rem 1rem 0;
+}
+
+main  #tasks .overview {
+    border-bottom: 0.1rem solid var(--c-text);
+    padding: 1rem 1rem 1rem 0;
+}
+
+footer {
+    width: 100%;
+    padding: 1rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: flex-end;
+    box-sizing: border-box;
+    box-shadow: 0 0.625rem 0.375rem -0.375rem var(--c-box-shadow);
+}
+
+footer button {
+    border-radius: 100%;
+    background: var(--c-dark-purple);
+    color: var(--c-light);
+    border: none;
+    width: 4rem;
+    height: 4rem;
+    cursor: pointer;
+}
+
+footer button:disabled{
+    background: var(--c-dark-purple);
+    color: var(--c-disabled);  
+}
+footer button#open {
+    margin: 1.1rem;
+}
+footer button#close {
+    position: absolute;
+    top: -0.625rem;
+    right: -0.625rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 0.125rem solid var(--c-light-purple);
+}
+
+footer button#close svg {
+    width: 0.625rem;
+    height: 0.625rem;
+}
+
+footer form {
+    background: var(--c-light);
+    position: relative;
+    border: 0.125rem solid var(--c-light-purple);
+    padding: 1rem;
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+@media screen and (max-width:768px) {
+    footer form {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    footer form label,
+    footer form #submit {
+        margin: 0.625rem 0 0 0;
+    }
+
+    footer form label:first-child {
+        margin: 0;
+    }
+
+    footer form input {
+        width: 100%;
+    }
+
+    footer form button#submit {
+        align-self: flex-end;
+    }
+}
