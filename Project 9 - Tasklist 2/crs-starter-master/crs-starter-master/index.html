@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Tasks</title>
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+        <link href="styles/styles.css" rel="stylesheet">
+    </head>
+    <body>
+        <div id="app">
+            <header>
+                <button id="menu" aria-label="Open main menu list">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M4 19h18v-2H4v2zm0-5h18v-2H4v2zm0-7v2h18V7H4z"></path>
+                    </svg>
+                </button>
+                <ul id="menu-list" class="hidden">
+                    <li>
+                        <a href="#">Home</a>
+                    </li>
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+                <h1>Tasks</h1>
+            </header>
+            <main>
+                <button id="toggleFilter">All</button>
+                <ul id="tasks">              
+                    <template id='task-template'>
+                        <li>
+                            <input type="checkbox">
+                            <div class="overview">
+                                <h4></h4>
+                                <div></div>
+                            </div>
+                        </li>
+                    </template>
+                </ul>
+            </main>
+            <footer>
+                <form id='controls' class="hidden">
+                    <label for="title">Title *</label>
+                    <input id="title" name="title" type="text" required>
+            
+                    <label for="date">Date *</label>
+                    <input id="date" name="date" type="date">
+        
+                    <button id="submit" aria-label="Submit form">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path>
+                        </svg>
+                    </button>
+        
+                    <button id="close" aria-label="Close form">
+                        <svg viewBox="0 0 18 18">
+                            <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"/>
+                        </svg>
+                    </button>
+                </form>
+                <button id="open" aria-label="Open form">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path>
+                    </svg>
+                </button>
+            </footer>    
+        </div>
+        <script src="index.js" type="module"></script>
+    </body>
+</html> 
