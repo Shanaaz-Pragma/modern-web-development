@@ -1,0 +1,57 @@
+:root {
+    --size: 15rem;
+    --c-card-bg: #dadada;
+    --c-card-bg-hover: #e91e63;
+    --c-text: #666666;
+    --c-light: #FFFFFF;
+    --c-text-small: 1.5rem;
+    --c-text-normal: 2rem;
+    --box-shadow: 0 0 5px 0 rgba(1, 1, 1, 0.75);
+    --border-radius: 0.4rem;
+    --transition: all 0.5s ease;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 40px;
+}
+
+.cards {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cards > div {
+    background: var(--c-card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    border: 2px solid var(--c-light);
+    color: var(--c-text);
+    width: 150px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    user-select: none;
+    will-change: transform;
+    transition: var(--transition);
+}
+
+.cards > div:not(:first-child) {
+    margin-left: -1rem;
+}
+
+.cards > div:hover,
+.cards > div:focus {
+    background: var(--c-card-bg-hover);
+    color: var(--c-light);
+    transform: scale(1.2) translateY(-1rem);
+
+}
+
+.cards:hover > div:hover ~ div,
+.cards:focus > div:focus ~ div {
+    transform: translateX(2rem) rotate(-90deg);
+}
