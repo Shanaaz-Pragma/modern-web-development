@@ -8,6 +8,7 @@ export class Task{
      * @param {date} date 
      * @param {boolean} complete 
      */
+
     constructor(title, date, complete=false) {
         this.title = title;
         this.date = date;
@@ -27,9 +28,7 @@ export class Task{
      * Handle complete state
      * @param {*} allow 
      */
-    complete(value) {
-        if(this.isComplete === value) return;
-        
+    complete(value) {       
         this.isComplete = value;
     }
 }

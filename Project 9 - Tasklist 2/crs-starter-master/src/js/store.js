@@ -41,7 +41,7 @@ export class Store {
      * Get new item id
      */
     getNewId(){
-        this._id = this._id || 0;
+        this._id = this._id || this.data && this.data.length || 0;
         this._id++;
 
         return this._id;
@@ -75,5 +75,13 @@ export class Store {
      */
     findBy(flag, value) {
         return this.data.find(x => x[flag] === value);
+    }
+
+    /**
+     * Filter item by parameter property
+     * @param {*} flag - Eg. date 
+     */
+    filterBy(flag, value) {
+        return this.data.filter(x => x[flag] === value);
     }
 }

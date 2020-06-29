@@ -16,6 +16,17 @@ export class ViewModel {
         return `${year}-0${month}-${day}`;
     }
 
+    get filterDate(){
+        const dateNow = new Date(Date.now());
+        let day = dateNow.getDate();
+        day = day < 10 ? `0${day}` : day;
+        let month = dateNow.getMonth();
+        month++;
+        const year = dateNow.getFullYear();
+
+        return `${year}-0${month}-${day}`;
+    }
+
     /**
      * @constructor
      */
@@ -24,7 +35,7 @@ export class ViewModel {
         this.store = Store.createStore("MyTasks");
         
         if(this.store.data.length > 0) {
-            this.render(this.store.data);
+            this.render();
         }
     }
 
@@ -38,8 +49,10 @@ export class ViewModel {
         this._template = null;
         this._fields = null;
         this._buttons = null;
-        this._formContainer = null;
+        this.title = null;
+        this.date = null;
         this._form = null;
+        this._formContainer = null;
 
         if(this._task != null) {
             this._task.dispose();
@@ -59,8 +72,10 @@ export class ViewModel {
         this._template = document.querySelector('#task-template');
         this._formContainer = document.querySelector('footer');
         this._form = this._formContainer.querySelector('form');
-        this._formContainer.querySelector('#date').value = this.resetDate;
         this._buttons = this._formContainer.querySelectorAll('button');
+        this.title = this._formContainer.querySelector('#title');
+        this.date = this._formContainer.querySelector('#date');
+        this.date.value = this.resetDate;
 
         this._clickHandler = this._click.bind(this);
         document.getElementById('app').addEventListener('click', this._clickHandler);
@@ -78,20 +93,21 @@ export class ViewModel {
 
         if(e.target.type === "checkbox") {
             const id = e.target.parentElement.getAttribute('data-id');
-            const task = this.store.findBy('data-id', id);
+            const task = this.store.findBy('id', id);
             task.isComplete = e.target.checked;
         }
     }
 
     /**
-     * Render items
+     * Render existing items
      */
-    render(items) {
+    render() {
         const fragment = document.createDocumentFragment();
+        const items = this.filter == null ? this.store.data : this.store.filterBy('date', this.filterDate);
         
         for (const item of items) {
             const clone = this._template.content.cloneNode(true);
-            clone.querySelector('li').setAttribute('data-id', item['data-id']);
+            clone.querySelector('li').setAttribute('data-id', item['id']);
             clone.querySelector('.overview h4').innerHTML = item.title;
             clone.querySelector('.overview div').innerHTML = new Date(item.date).toDateString();
 
@@ -117,6 +133,15 @@ export class ViewModel {
         this.toggle(document.querySelector(`#${e.target.getAttribute("id")}-list`));
     }
 
+    toggleFilter(e) {
+        const text = e.target.innerHTML === "Today" ? "All" : "Today";
+        e.target.innerHTML = text;
+        this.filter = this.filter != null ? null : text.toLowerCase();
+
+        this._taskList.innerHTML = "";
+        this.render();
+    }
+
     /**
     * Handle action of open button 
     */
@@ -128,38 +153,58 @@ export class ViewModel {
     /**
      * Handle action of close button
      */
-    close(e) {
+    close() {
         this.toggle(this._form);
         this.toggle(document.getElementById('open'));
+
+        this.title.value = "";
+        this.date.value = this.resetDate;
     }
 
     /**
      * Handle action of submit button 
      */
-    submit(){
+    submit() {
         this.validate(this._form);
 
         if (this._valid.length !== this._fields.length) return;
 
-        const fragment = document.createDocumentFragment();
-        const clone = this._template.content.cloneNode(true);
+        this.title.value = this._formContainer.querySelector('#title').value;
+        this.date.value = this._formContainer.querySelector('#date').value;
+        
+        this.createTask();
+        this.createFragment();
+        this.close();
+    }
 
-        this._task = new Task(title.value, date.value);
-        this._task['data-id'] = this.store.getNewId().toString();
+    /**
+     * Create a task
+     */
+    createTask() {
+        this._task = new Task(this.title.value, this.date.value);
+        this._task.id = this.store.getNewId().toString();
         this.store.data.push(this._task);
         this.store.datasource.save();
+    }
 
-        clone.querySelector('li').setAttribute('data-id', this._task['data-id']);
-        clone.querySelector('.overview h4').innerHTML = this._formContainer.querySelector('#title').value;
-        clone.querySelector('.overview div').innerHTML = new Date(document.getElementById("date").value).toDateString();
+    /**
+     * Create a fragment
+     */
+    createFragment() {
+
+        if(this.filter != null) {
+            if(this._task['date'] !== this.filterDate) return;
+        }
+
+        const clone = this._template.content.cloneNode(true);
+        const fragment = document.createDocumentFragment();
+
+        clone.querySelector('li').setAttribute('data-id', this._task['id']);
+        clone.querySelector('.overview h4').innerHTML = this.title.value;
+        clone.querySelector('.overview div').innerHTML = new Date(this.date.value).toDateString();
 
         fragment.appendChild(clone);
         this._taskList.appendChild(fragment);
-
-        title.value = "";
-        date.value = this.resetDate;
-
-        this.close();
     }
 
     /**

@@ -5,7 +5,7 @@
     --c-dark-purple: #5223A5;
     --c-text: #666666;
     --c-disabled: #EEEEEE; 
-    --c-valid: #49B506; 
+    --c-valid: #488523; 
     --c-invalid: #F42929; 
     --c-box-shadow: #777777;
 }
@@ -43,11 +43,6 @@ h1 {
     font-weight: normal;
 }
 
-h2 {
-    font-size: 1rem;
-    padding: 0.5rem 1rem 0.5rem 1.5rem;
-}
-
 a,
 a:visited {
     color: var(--c-pink);
@@ -76,6 +71,10 @@ input {
 input[type='checkbox'] {
     margin: 0;
     cursor: pointer;
+}
+
+input[type='checkbox']:checked + .overview {
+    text-decoration: line-through;
 }
 
 input:invalid {
@@ -140,7 +139,7 @@ nav {
     cursor: pointer;
 }
 
-nav #menu-list {
+#menu-list {
     background: var(--c-light-purple);
     position: absolute;
     top: 4rem;
@@ -155,11 +154,14 @@ main {
     overflow-y: auto;
 }
 
-main > h2 {
+main > button {
     position: absolute;
     width: 100%;
     top: 5rem;
     left: 0;
+    width: auto;
+    font-size: 1rem;
+    padding: 0.5rem 1rem 0.5rem 1.5rem;
 }
 
 main #tasks {
@@ -179,7 +181,7 @@ main #tasks li:first-child .overview {
 
 main  #tasks .overview {
     border-bottom: 0.1rem solid var(--c-text);
-    padding: 1rem 1rem 1rem 0;
+    padding: 1rem;
 }
 
 footer {
@@ -209,6 +211,7 @@ footer button:disabled{
     background: var(--c-dark-purple);
     color: var(--c-disabled);  
 }
+
 footer button#open {
     margin: 1.1rem;
 }
