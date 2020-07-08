@@ -1,0 +1,44 @@
+.switch {
+    width: 300px;
+    position: relative;
+    display: block;
+    cursor: pointer;
+}
+
+.switch:before {
+    width: 100%;
+    height: 100px;
+    background-color: #FFFFFF;
+    border-radius: 80px;
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.1), 0 0 2.5rem rgba(0, 0, 0, 0.1);
+}
+
+.switch:checked:before {
+    background-color: green;
+    box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.1), 0 0 2.5rem rgba(0, 0, 0, 0.1);
+}
+
+
+.switch:after {
+    width: 100px;
+    height: 100px;
+    background-color: #FFFFFF;
+    border-radius: 100%;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0 ;
+    z-index: 2;
+    box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.3), 0 0 2.5rem rgba(0, 0, 0, 0.1) inset;
+    will-change: transform;
+}
+
+.switch:checked:after {
+    transform: translateX(200%);
+    border: 1px solid green;
+}
